@@ -4,20 +4,25 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 let highScore = 0;
 
+const displayMessage = function (message) {
+  document.querySelector(".message").textContent = message;
+};
+
 document.querySelector(".check").addEventListener("click", function () {
   const guess = Number(document.querySelector(".guess").value);
 
   // When there is no input
   if (!guess) {
-    document.querySelector(".message").textContent = "No Number!";
+    displayMessage("No Number!");
 
     // When player wins
   } else if (guess === secretNumber) {
     document.querySelector(".number").textContent = secretNumber;
     document.querySelector(".title").textContent = "CORRECT!";
-    document.querySelector(".message").textContent = "Correct Number!";
+    displayMessage("Correct Number!");
     document.querySelector("body").style.backgroundColor = "#7bb661";
     document.querySelector(".number").style.width = "30rem";
+
     if (score > highScore) {
       highScore = score;
       document.querySelector(".highscore").textContent = highScore;
@@ -26,10 +31,11 @@ document.querySelector(".check").addEventListener("click", function () {
     // When guess is wrong
   } else if (guess !== secretNumber) {
     if (score > 1) {
-      document.querySelector(".message").textContent =
+      displayMessage(
         guess > secretNumber
           ? "Too High! Guess Lower!"
-          : "Too Low! Guess Higher!";
+          : "Too Low! Guess Higher!"
+      );
       score--;
       document.querySelector(".score").textContent = score;
     } else {
@@ -45,7 +51,8 @@ document.querySelector(".again").addEventListener("click", function () {
   secretNumber = Math.trunc(Math.random() * 20) + 1;
   score = 20;
   document.querySelector(".score").textContent = score;
-  document.querySelector(".title").textContent = "Start guessing...";
+  document.querySelector(".title").textContent = "Guess The Number!";
+  displayMessage("Start guessing...");
   document.querySelector("body").style.backgroundColor = "#222";
   document.querySelector(".guess").value = "";
   document.querySelector(".number").style.width = "15rem";
